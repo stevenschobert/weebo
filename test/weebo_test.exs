@@ -28,8 +28,13 @@ defmodule WeeboTest do
     "<double>#{num}</double>"
   end
 
+  def base64_type(string) do
+    "<base64>#{Base.encode64(string)}</base64>"
+  end
+
   test "#cast" do
     assert string_type("xmlrpc")|>Weebo.cast == "xmlrpc"
+    assert base64_type("xmlrpc")|>Weebo.cast == "xmlrpc"
 
     assert boolean_type(true)|>Weebo.cast == true
     assert boolean_type(false)|>Weebo.cast == false

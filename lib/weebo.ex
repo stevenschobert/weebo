@@ -9,6 +9,8 @@ defmodule Weebo do
         cast_integer(x)
       {:double, x} ->
         cast_double(x)
+      {:base64, x} ->
+        cast_base64(x)
       {:string, x} ->
         x
       _ ->
@@ -28,6 +30,8 @@ defmodule Weebo do
         {:integer, Exml.get(doc, "/i4")}
       Exml.get(doc, "/double")|>is_bitstring ->
         {:double, Exml.get(doc, "/double")}
+      Exml.get(doc, "/base64")|>is_bitstring ->
+        {:base64, Exml.get(doc, "/base64")}
       true -> :unknown
     end
   end
@@ -37,4 +41,6 @@ defmodule Weebo do
 
   defp cast_integer(int), do: String.to_integer(int)
   defp cast_double(double), do: String.to_float(double)
+
+  defp cast_base64(string), do: Base.decode64!(string)
 end
