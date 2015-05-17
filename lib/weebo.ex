@@ -7,6 +7,10 @@ defmodule Weebo do
         cast_boolean(x)
       {:integer, x} ->
         cast_integer(x)
+      {:double, x} ->
+        cast_double(x)
+      {:string, x} ->
+        x
       _ ->
         {:unknown_type, string}
     end
@@ -14,12 +18,16 @@ defmodule Weebo do
 
   defp get_type(doc) do
     cond do
+      Exml.get(doc, "/string")|>is_bitstring ->
+        {:string, Exml.get(doc, "/string")}
       Exml.get(doc, "/boolean")|>is_bitstring ->
         {:boolean, Exml.get(doc, "/boolean")}
       Exml.get(doc, "/int")|>is_bitstring ->
         {:integer, Exml.get(doc, "/int")}
       Exml.get(doc, "/i4")|>is_bitstring ->
         {:integer, Exml.get(doc, "/i4")}
+      Exml.get(doc, "/double")|>is_bitstring ->
+        {:double, Exml.get(doc, "/double")}
       true -> :unknown
     end
   end
@@ -28,4 +36,5 @@ defmodule Weebo do
   defp cast_boolean("0"), do: false
 
   defp cast_integer(int), do: String.to_integer(int)
+  defp cast_double(double), do: String.to_float(double)
 end
