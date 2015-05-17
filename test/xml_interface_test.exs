@@ -2,6 +2,20 @@ defmodule Weebo.XMLInterfaceTest do
   use ExUnit.Case
   alias Weebo.XMLInterface, as: XML
 
+  def sample_tree() do
+    {:methodResponse, [
+          {:params, [
+                {:param, [
+                      {:value, [
+                            {:string, ["Weebo"]},
+                          ]}]},
+                {:param, [
+                      {:value, [
+                            {:int, ["0"]}
+                          ]}
+                    ]}]}]}
+  end
+
   def sample_xml() do
     """
     <?xml version="1.0"?>
@@ -41,17 +55,6 @@ defmodule Weebo.XMLInterfaceTest do
   end
 
   test "#to_tree" do
-    assert XML.parse(sample_xml)|>XML.to_tree == {
-      :methodResponse, [
-            {:params, [
-                  {:param, [
-                        {:value, [
-                              {:string, ["Weebo"]},
-                            ]}]},
-                  {:param, [
-                        {:value, [
-                              {:int, ["0"]}
-                            ]}
-                      ]}]}]}
+    assert XML.parse(sample_xml)|>XML.to_tree == sample_tree
   end
 end

@@ -15,6 +15,6 @@ defmodule Weebo.Mixfile do
   end
 
   defp deps do
-    [{:exml, git: "https://github.com/expelledboy/exml.git", tag: "v0.0.1"}]
+    []
   end
 end

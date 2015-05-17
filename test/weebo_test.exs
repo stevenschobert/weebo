@@ -32,6 +32,17 @@ defmodule WeeboTest do
     "<base64>#{Base.encode64(string)}</base64>"
   end
 
+  def array_type(list) when is_list(list) do
+    array_type(list, "<array><data>")
+  end
+  def array_type([], acc) do
+    "#{acc}</data></array>"
+  end
+  def array_type([{type, value}|tail], acc) do
+    typed_value = apply(__MODULE__, String.to_atom("#{type}_type"), [value])
+    array_type(tail, "#{acc}<value>#{typed_value}</value>")
+  end
+
   test "#cast" do
     assert string_type("xmlrpc")|>Weebo.cast == "xmlrpc"
     assert base64_type("xmlrpc")|>Weebo.cast == "xmlrpc"
@@ -43,5 +54,7 @@ defmodule WeeboTest do
     assert int_type_alt(5)|>Weebo.cast == 5
 
     assert double_type(12.5)|>Weebo.cast == 12.5
+
+    # assert array_type([{:boolean, true}, {:string, "hello"}, {:int, 40}])|>Weebo.cast == [true, "hello", 40]
   end
 end
