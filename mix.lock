@@ -1,0 +1,2 @@
+%{"exml": {:git, "https://github.com/expelledboy/exml.git", "64ad796d5637c81168c8109a53bcc300b73825ea", [tag: "v0.0.1"]},
+  "mydep": {:git, "https://github.com/expelledboy/exml.git", "64ad796d5637c81168c8109a53bcc300b73825ea", [tag: "v0.0.1"]}}
