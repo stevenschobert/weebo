@@ -20,7 +20,7 @@ defmodule WeeboTest do
     "<int>#{num}</int>"
   end
 
-  def int_type_alt(num) do
+  def i4_type(num) do
     "<i4>#{num}</i4>"
   end
 
@@ -61,7 +61,7 @@ defmodule WeeboTest do
     assert boolean_type(false)|>Weebo.cast == false
 
     assert int_type(5)|>Weebo.cast == 5
-    assert int_type_alt(5)|>Weebo.cast == 5
+    assert i4_type(5)|>Weebo.cast == 5
 
     assert double_type(12.5)|>Weebo.cast == 12.5
 
