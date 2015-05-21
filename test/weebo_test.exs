@@ -32,15 +32,25 @@ defmodule WeeboTest do
     "<base64>#{Base.encode64(string)}</base64>"
   end
 
+  def member_type(name: name, type: type, value: val) do
+    typed_value = apply(__MODULE__, String.to_atom("#{type}_type"), [val])
+    "<member><name>#{name}</name><value>#{typed_value}</value></member>"
+  end
+
   def array_type(list) when is_list(list) do
-    array_type(list, "<array><data>")
+    {_, typed} = Enum.map_reduce list, "<array><data>", fn({type, value}, acc) ->
+      typed_value = apply(__MODULE__, String.to_atom("#{type}_type"), [value])
+      {{type, value}, "#{acc}<value>#{typed_value}</value>"}
+    end
+    "#{typed}</data></array>"
   end
-  def array_type([], acc) do
-    "#{acc}</data></array>"
-  end
-  def array_type([{type, value}|tail], acc) do
-    typed_value = apply(__MODULE__, String.to_atom("#{type}_type"), [value])
-    array_type(tail, "#{acc}<value>#{typed_value}</value>")
+
+  def struct_type(list) when is_list(list) do
+    {_, typed} = Enum.map_reduce list, "<struct>", fn({name, type, value}, acc) ->
+      member = member_type(name: name, type: type, value: value)
+      {{name, type, value}, "#{acc}#{member}"}
+    end
+    "#{typed}</struct>"
   end
 
   test "#cast" do
@@ -55,6 +65,10 @@ defmodule WeeboTest do
 
     assert double_type(12.5)|>Weebo.cast == 12.5
 
-    # assert array_type([{:boolean, true}, {:string, "hello"}, {:int, 40}])|>Weebo.cast == [true, "hello", 40]
+    assert member_type(name: "foo", type: :string, value: "bar")|>Weebo.cast == {:foo, "bar"}
+
+    assert array_type([{:boolean, true}, {:string, "hello"}, {:int, 40}])|>Weebo.cast == [true, "hello", 40]
+
+    assert struct_type([{:foo, :string, "bar"}, {:number, :int, 40}, {:online, :boolean, false}])|>Weebo.cast == %{foo: "bar", number: 40, online: false}
   end
 end
