@@ -68,7 +68,7 @@ defmodule WeeboTest do
       <methodName>weebo.sample_call</methodName>
       <params>
         <param>
-          <value><i4>40</i4></value>
+          <value><int>40</int></value>
         </param>
         <param>
           <value><boolean>0</boolean></value>
@@ -111,6 +111,16 @@ defmodule WeeboTest do
       </fault>
     </methodResponse>
     """
+  end
+
+  def strip_xml(xml) do
+    String.replace(xml, ~r/[\n\s]*/, "", global: true)
+  end
+
+  test "#format" do
+    assert Weebo.format(%Weebo.Call{method: "weebo.sample_call", params: [40, false]})|>strip_xml == strip_xml(sample_call)
+    assert Weebo.format(%Weebo.Response{error: nil, params: ["Weebo"]})|>strip_xml == strip_xml(sample_response)
+    assert Weebo.format(%Weebo.Response{error: %{faultCode: 4, faultString: "Too many parameters."}, params: []})|>strip_xml == strip_xml(sample_fault)
   end
 
   test "#parse" do

@@ -40,10 +40,12 @@ defmodule Weebo.XMLInterfaceTest do
     "<string></string>"
   end
 
+  def strip_xml(xml) do
+    String.replace(xml, ~r/[\n\s]*/, "", global: true)
+  end
 
   test "#export" do
-    xml = String.replace(sample_xml, ~r/[\n\s]*/, "", global: true)
-    assert XML.parse(sample_xml)|>XML.export|>String.replace(~r/[\n\s]*/, "", global: true) == xml
+    assert XML.parse(sample_xml)|>XML.export|>strip_xml == strip_xml(sample_xml)
   end
 
   test "#element_name" do
@@ -65,6 +67,6 @@ defmodule Weebo.XMLInterfaceTest do
   end
 
   test "#from_tree" do
-    XML.from_tree(sample_tree)|>XML.export|>String.replace(~r/[\n\s]*/, "", global: true) == String.replace(sample_xml, ~r/[\n\s]*/, "", global: true)
+    XML.from_tree(sample_tree)|>XML.export|>strip_xml == strip_xml(sample_xml)
   end
 end

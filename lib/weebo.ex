@@ -1,5 +1,10 @@
 defmodule Weebo do
   alias Weebo.XMLInterface, as: XML
+  alias Weebo.Formattable
+
+  def format(object) do
+    Formattable.format(object)|>XML.from_tree|>XML.export
+  end
 
   def parse(string) when is_bitstring(string) do
     parsed = XML.parse(string)|>XML.to_tree
