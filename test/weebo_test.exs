@@ -28,6 +28,14 @@ defmodule WeeboTest do
     "<double>#{num}</double>"
   end
 
+  def nil_type() do
+    "<nil></nil>"
+  end
+
+  def nil_type_short() do
+    "<nil/>"
+  end
+
   def base64_type(string) do
     "<base64>#{Base.encode64(string)}</base64>"
   end
@@ -146,6 +154,9 @@ defmodule WeeboTest do
     assert array_type([{:boolean, true}, {:string, "hello"}, {:int, 40}])|>Weebo.cast == [true, "hello", 40]
 
     assert struct_type([{:foo, :string, "bar"}, {:number, :int, 40}, {:online, :boolean, false}])|>Weebo.cast == %{foo: "bar", number: 40, online: false}
+
+    assert Weebo.cast(nil_type) == nil
+    assert Weebo.cast(nil_type_short) == nil
 
     timestamp = :calendar.universal_time
     assert date_type(timestamp)|>Weebo.cast == timestamp

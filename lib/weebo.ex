@@ -41,6 +41,7 @@ defmodule Weebo do
   end
   def cast({:value, [value]}), do: cast(value)
   def cast({:param, [value]}), do: cast(value)
+  def cast({:nil, []}), do: nil
   def cast(val) do
     {:unknown_type, val}
   end
