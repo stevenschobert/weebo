@@ -1,6 +1,18 @@
 defmodule Weebo do
   alias Weebo.XMLInterface, as: XML
 
+  def parse(string) when is_bitstring(string) do
+    parsed = XML.parse(string)|>XML.to_tree
+    case parsed do
+      {:methodCall, [{:methodName, [name]}, {:params, params}]} ->
+        %Weebo.Call{method: name, params: Enum.map(params, &cast/1)}
+      {:methodResponse, [{:params, params}]} ->
+        %Weebo.Response{error: nil, params: Enum.map(params, &cast/1)}
+      {:methodResponse, [{:fault, [error]}]} ->
+        %Weebo.Response{error: cast(error)}
+    end
+  end
+
   def cast(string) when is_bitstring(string) do
     XML.parse(string)|>XML.to_tree|>cast
   end
@@ -23,6 +35,7 @@ defmodule Weebo do
     casted
   end
   def cast({:value, [value]}), do: cast(value)
+  def cast({:param, [value]}), do: cast(value)
   def cast(val) do
     {:unknown_type, val}
   end

@@ -32,6 +32,10 @@ defmodule WeeboTest do
     "<base64>#{Base.encode64(string)}</base64>"
   end
 
+  def param_type(string) do
+    "<param>#{string_type(string)}</param>"
+  end
+
   def date_type(date) do
     "<dateTime.iso8601>#{:iso8601.format(date)}</dateTime.iso8601>"
   end
@@ -57,6 +61,64 @@ defmodule WeeboTest do
     "#{typed}</struct>"
   end
 
+  def sample_call() do
+    """
+    <?xml version=\"1.0\"?>
+    <methodCall>
+      <methodName>weebo.sample_call</methodName>
+      <params>
+        <param>
+          <value><i4>40</i4></value>
+        </param>
+        <param>
+          <value><boolean>0</boolean></value>
+        </param>
+      </params>
+    </methodCall>
+    """
+  end
+
+  def sample_response() do
+    """
+    <?xml version=\"1.0\"?>
+    <methodResponse>
+      <params>
+        <param>
+          <value><string>Weebo</string></value>
+        </param>
+      </params>
+    </methodResponse>
+    """
+  end
+
+  def sample_fault() do
+    """
+    <?xml version=\"1.0\"?>
+    <methodResponse>
+      <fault>
+        <value>
+          <struct>
+            <member>
+              <name>faultCode</name>
+              <value><int>4</int></value>
+            </member>
+            <member>
+              <name>faultString</name>
+              <value><string>Too many parameters.</string></value>
+            </member>
+          </struct>
+        </value>
+      </fault>
+    </methodResponse>
+    """
+  end
+
+  test "#parse" do
+    assert Weebo.parse(sample_call) == %Weebo.Call{method: "weebo.sample_call", params: [40, false]}
+    assert Weebo.parse(sample_response) == %Weebo.Response{error: nil, params: ["Weebo"]}
+    assert Weebo.parse(sample_fault) == %Weebo.Response{error: %{faultCode: 4, faultString: "Too many parameters."}, params: []}
+  end
+
   test "#cast" do
     assert string_type("xmlrpc")|>Weebo.cast == "xmlrpc"
     assert base64_type("xmlrpc")|>Weebo.cast == "xmlrpc"
@@ -77,5 +139,7 @@ defmodule WeeboTest do
 
     timestamp = :calendar.universal_time
     assert date_type(timestamp)|>Weebo.cast == timestamp
+
+    assert param_type("test")|>Weebo.cast == "test"
   end
 end
