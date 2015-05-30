@@ -12,6 +12,7 @@ defmodule Weebo do
   def cast({:i4, [int]}), do: String.to_integer(int)
   def cast({:double, [double]}), do: String.to_float(double)
   def cast({:base64, [string]}), do: Base.decode64!(string)
+  def cast({:"dateTime.iso8601", [value]}), do: :iso8601.parse(value)
   def cast({:array, [{:data, items}]}), do: Enum.map(items, &cast/1)
   def cast({:member, [{:name, [name]}, value]}), do: {String.to_atom(name), cast(value)}
   def cast({:struct, members}) do
