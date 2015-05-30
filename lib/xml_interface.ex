@@ -11,6 +11,21 @@ defmodule Weebo.XMLInterface do
     doc
   end
 
+  def export(xml) do
+    List.flatten(:xmerl.export([xml], :xmerl_xml)) |> List.to_string
+  end
+
+  def from_tree({elem, children}) do
+    content = Enum.map children, fn(child) ->
+      if is_bitstring(child) do
+        xmlText(value: child)
+      else
+        from_tree(child)
+      end
+    end
+    xmlElement(name: elem, content: content)
+  end
+
   def to_tree(xml) do
     node = {element_name(xml), []}
     to_tree(element_value(xml), node)
