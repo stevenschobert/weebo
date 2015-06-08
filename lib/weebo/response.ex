@@ -1,8 +1,12 @@
 defmodule Weebo.Response do
+  @moduledoc "Struct used to represent a XML-RPC response."
   defstruct error: nil, params: []
+
+  @type t :: %Weebo.Response{error: map | nil, params: list}
 end
 
 defimpl Weebo.Formattable, for: Weebo.Response do
+  @spec format(Weebo.Response.t) :: Weebo.xml_tree
   def format(response) do
     case response do
       %Weebo.Response{error: nil, params: params} ->
