@@ -11,7 +11,7 @@ defmodule Weebo.Mixfile do
        contributors: ["Steven Schobert"],
        licenses: ["MIT"],
        links: %{"GitHub" => "https://github.com/stevenschobert/weebo"},
-       files: ~w(mix.exs README.md LICENSE.txt lib)
+       files: ~w(mix.exs README.md LICENSE.txt lib src)
      ],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
