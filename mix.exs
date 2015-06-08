@@ -15,6 +15,7 @@ defmodule Weebo.Mixfile do
   end
 
   defp deps do
-    [{:iso8601, github: "seansawyer/erlang_iso8601", tag: "1.1.1", compile: "#{Mix.Rebar.local_rebar_path} compile"}]
+    [{:ex_doc, "~> 0.7", only: :docs},
+     {:iso8601, github: "seansawyer/erlang_iso8601", tag: "1.1.1", compile: "#{Mix.Rebar.local_rebar_path} compile"}]
   end
 end

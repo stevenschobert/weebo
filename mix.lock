@@ -1,3 +1,2 @@
-%{"exml": {:git, "https://github.com/expelledboy/exml.git", "64ad796d5637c81168c8109a53bcc300b73825ea", [tag: "v0.0.1"]},
-  "iso8601": {:git, "git://github.com/seansawyer/erlang_iso8601.git", "7b5015419774d7b27f37c088d5a33d23ec84acc4", [tag: "1.1.1"]},
-  "mydep": {:git, "https://github.com/expelledboy/exml.git", "64ad796d5637c81168c8109a53bcc300b73825ea", [tag: "v0.0.1"]}}
+%{"ex_doc": {:hex, :ex_doc, "0.7.3"},
+  "iso8601": {:git, "git://github.com/seansawyer/erlang_iso8601.git", "7b5015419774d7b27f37c088d5a33d23ec84acc4", [tag: "1.1.1"]}}
