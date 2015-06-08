@@ -1,5 +1,5 @@
 defmodule Weebo.Response do
-  @moduledoc "Struct used to represent a XML-RPC response."
+  @moduledoc "Struct used to represent an XML-RPC response."
   defstruct error: nil, params: []
 
   @type t :: %Weebo.Response{error: map | nil, params: list}

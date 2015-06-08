@@ -65,7 +65,7 @@ defmodule Weebo do
   alias Weebo.Formattable
 
   @doc ~S"""
-  Formats `%Weebo.Response` and `%Weebo.Request` into a XML-RPC string.
+  Formats `%Weebo.Response` and `%Weebo.Request` into an XML-RPC string.
 
   ## Examples
 
@@ -79,7 +79,7 @@ defmodule Weebo do
   end
 
   @doc ~S"""
-  Parses a XML-RPC string into `%Weebo.Request` and `%Weebo.Response`.
+  Parses an XML-RPC string into `%Weebo.Request` and `%Weebo.Response`.
 
   ## Examples
 

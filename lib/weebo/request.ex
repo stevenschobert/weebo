@@ -1,5 +1,5 @@
 defmodule Weebo.Request do
-  @moduledoc "Struct used to represent a XML-RPC request."
+  @moduledoc "Struct used to represent an XML-RPC request."
   defstruct method: nil, params: []
 
   @type t :: %Weebo.Request{method: String.t, params: list}
