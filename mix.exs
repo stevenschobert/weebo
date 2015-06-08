@@ -3,7 +3,7 @@ defmodule Weebo.Mixfile do
 
   def project do
     [app: :weebo,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 1.0",
      name: "Weebo",
      description: "An XML-RPC parser/formatter for Elixir, with full support for datatype mapping!",
