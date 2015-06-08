@@ -29,6 +29,9 @@ end
 
 Then run `mix deps.get` and `mix deps.compile`.
 
+## API Documentation
+
+Full documentation is available on Hex &mdash; [http://hexdocs.pm/weebo/](http://hexdocs.pm/weebo/)
 
 ## Data Type Mapping
 
