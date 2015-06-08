@@ -126,13 +126,13 @@ defmodule WeeboTest do
   end
 
   test "#format" do
-    assert Weebo.format(%Weebo.Call{method: "weebo.sample_call", params: [40, false]})|>strip_xml == strip_xml(sample_call)
+    assert Weebo.format(%Weebo.Request{method: "weebo.sample_call", params: [40, false]})|>strip_xml == strip_xml(sample_call)
     assert Weebo.format(%Weebo.Response{error: nil, params: ["Weebo"]})|>strip_xml == strip_xml(sample_response)
     assert Weebo.format(%Weebo.Response{error: %{faultCode: 4, faultString: "Too many parameters."}, params: []})|>strip_xml == strip_xml(sample_fault)
   end
 
   test "#parse" do
-    assert Weebo.parse(sample_call) == %Weebo.Call{method: "weebo.sample_call", params: [40, false]}
+    assert Weebo.parse(sample_call) == %Weebo.Request{method: "weebo.sample_call", params: [40, false]}
     assert Weebo.parse(sample_response) == %Weebo.Response{error: nil, params: ["Weebo"]}
     assert Weebo.parse(sample_fault) == %Weebo.Response{error: %{faultCode: 4, faultString: "Too many parameters."}, params: []}
   end
