@@ -6,6 +6,13 @@ defmodule Weebo.Mixfile do
      version: "1.0.0",
      elixir: "~> 1.0",
      name: "Weebo",
+     description: "An XML-RPC parser/formatter for Elixir, with full support for datatype mapping!",
+     package: [
+       contributors: ["Steven Schobert"],
+       licenses: ["MIT"],
+       links: %{"GitHub" => "https://github.com/stevenschobert/weebo"},
+       files: ~w(mix.exs README.md LICENSE.txt lib)
+     ],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      source_url: "https://github.com/stevenschobert/weebo",
