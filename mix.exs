@@ -3,10 +3,12 @@ defmodule Weebo.Mixfile do
 
   def project do
     [app: :weebo,
-     version: "0.0.1",
+     version: "1.0.0",
      elixir: "~> 1.0",
+     name: "Weebo",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     source_url: "https://github.com/stevenschobert/weebo",
      deps: deps]
   end
 
