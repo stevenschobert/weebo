@@ -23,7 +23,7 @@ Add Weebo to your mix dependencies:
 
 ```elixir
 def deps do
-  [{:weebo, "~> 1.0"}]
+  [{:weebo, "~> 0.1"}]
 end
 ```
 
