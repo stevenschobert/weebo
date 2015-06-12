@@ -9,6 +9,10 @@ defmodule WeeboTest do
     "<string>#{string}</string>"
   end
 
+  def empty_string_type() do
+    "<string></string>"
+  end
+
   def boolean_type(true) do
     "<boolean>1</boolean>"
   end
@@ -139,6 +143,8 @@ defmodule WeeboTest do
 
   test "#cast" do
     assert string_type("xmlrpc")|>Weebo.cast == "xmlrpc"
+    assert empty_string_type()|>Weebo.cast == ""
+
     assert base64_type("xmlrpc")|>Weebo.cast == "xmlrpc"
 
     assert boolean_type(true)|>Weebo.cast == true

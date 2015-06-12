@@ -107,6 +107,7 @@ defmodule Weebo do
     XML.parse(string)|>XML.to_tree|>cast
   end
   def cast({:string, [string]}), do: string
+  def cast({:string, []}), do: ""
   def cast({:boolean, ["1"]}), do: true
   def cast({:boolean, ["0"]}), do: false
   def cast({:int, [int]}), do: String.to_integer(int)
