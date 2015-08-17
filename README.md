@@ -1,8 +1,6 @@
 Weebo
 =====
 
-## Deprecation Notice
-
 > **tl;dr** &mdash; use [elixir-xml_rpc](https://github.com/ewildgoose/elixir-xml_rpc) instead
 
 I wrote Weebo in early 2015 because there were no libraries at the time to do XML-RPC style parsing. It was my first Elixir package, and I learned a ton from it.
